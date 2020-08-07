@@ -363,3 +363,23 @@ Another possible negative effects:
  * duplication of history cleanup job when calling `HistoryService#cleanUpHistoryAsync` from two threads simultaneously
 2. Duplicate checking during deployment does not work if resources are deployed in a cluster concurrently. Concrete impact: suppose there is a Camunda process engine cluster which connects to the same Galera cluster. On deployment of a new process application the process engine nodes will check if the BPMN processes provided by the process application are already deployed, to avoid duplicate deployments. If the deployment is done simultaneously on multiple process engine nodes an exclusive read lock is acquired on the the database (technically, this means that each node performs an SQL `select for update` query.), to do the duplicate checking reliably under concurrency. This does not work on Galera Cluster and may lead to multiple versions of the same process being deployed.
 3. The `jdbcStatementTimeout` configuration setting does not work and cannot be used.
+
+## Configuration for a CockroachDB Cluster
+
+CockroachDB always uses the `SERIALIZABLE` Transaction Isolation level. However, for the process 
+engine to be able to properly implement it's [optimistic locking]({{< ref "/user-guide/process-engine/transactions-in-processes.md#optimistic-locking" >}})
+scheme, it expects a `READ_COMMITTED` Transaction Isolation level. 
+
+For this reason, we have added some additional mechanisms in order to make the process engine able 
+to operate correctly on CockroachDB. Furthermore, due to the design o 
+
+### Custom CockroachDB transaction retry mechanism
+
+### CockroachDB Cluster Known Limitations
+
+* Exclusive Message correlation
+* Engine-side Query timeout (`jdbcStatementTimeout` property)
+* Un-ignorable historic `OptimisticLockingException`s
+* Block on database READ
+* Server-side transaction timeout of 5 minutes
+* Concurrency conflicts on unrelated data from the same table

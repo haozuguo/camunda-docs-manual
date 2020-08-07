@@ -48,12 +48,21 @@ and [Deployment scenarios]({{< ref "/user-guide/spring-boot-integration/_index.m
 * Amazon Aurora PostgreSQL compatible with PostgreSQL 9.6 / 10.4 / 10.7
 * Microsoft SQL Server 2012/2014/2016/2017/2019 (see [Configuration Note]({{< ref "/user-guide/process-engine/database.md#configuration-for-microsoft-sql-server" >}}))
 * H2 1.4 (not recommended for [Cluster Mode]({{< ref "/introduction/architecture.md#clustering-model" >}}) - see [Deployment Note]({{< ref "/user-guide/process-engine/deployments.md" >}}))
+* CockroachDB v20.1.3 (see [note]({{< ref "#cockroachdb" >}}) for more details)
 
 ## Database Clustering & Replication
 
 Clustered or replicated databases are supported given the following conditions. The communication between Camunda BPM and the database cluster has to match with the corresponding non-clustered / non-replicated configuration. It is especially important that the configuration of the database cluster guarantees the equivalent behavior of READ-COMMITTED isolation level.
 
 * MariaDB Galera Cluster: Galera Cluster for MariaDB is supported with specific configuration settings and some known limitations. See [Details]({{< ref "/user-guide/process-engine/database.md#configuration-for-mariadb-galera-cluster" >}}).
+
+### CockroachDB
+
+Running the Camunda Process Engine on a CockroachDB cluster is supported with several 
+limitations and altered behavior.
+
+See the [configuration guide]({{< ref "/user-guide/process-engine/database.md#configuration-for-a-cockroachdb-cluster" >}}) 
+for more details.
 
 # Web Browser
 
