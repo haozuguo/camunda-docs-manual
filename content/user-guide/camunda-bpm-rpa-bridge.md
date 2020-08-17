@@ -12,7 +12,7 @@ menu:
 
 The Camunda RPA bridge is a standalone application that allows to call RPA (robotic process automation) bots from BPMN models deployed to a Camunda engine. RPA bots can be orchestrated as External Tasks using the Camunda Modeler and Cawemo.
 
-For detailed instructions on how to connect your first RPA bot to a BPMN model (using Cawemo and the Camunda Modeler) and execute it from a running process instnace using the Camunda engine head over to our [installation guide]({{< ref "/installation/camunda-bpm-rpa-bridge.md" >}})
+For detailed instructions on how to connect your first RPA bot to a BPMN model (using Cawemo and the Camunda Modeler) and execute it from a running process instance using the Camunda engine, head over to our [installation guide]({{< ref "/installation/camunda-bpm-rpa-bridge.md" >}})
 
 {{< enterprise >}}
   Please note that the RPA bridge is only available as enterprise edition.
@@ -20,14 +20,14 @@ For detailed instructions on how to connect your first RPA bot to a BPMN model (
 
 # The Basics
 
-The Camunda RPA bridge serves a connector between Camunda (BPMN) on the one side and UIPath (RPA) on the other side. Processes running inside the Camunda engine can define external tasks that are marked as RPA tasks.
+The Camunda RPA bridge serves as a connector between Camunda (BPMN) on the one side and UIPath (RPA) on the other side. Processes running inside the Camunda engine can define external tasks that are marked as RPA tasks.
 
 The bridge extends the regular [Java External Task Client](https://github.com/camunda/camunda-external-task-client-java), fetches and locks the RPA tasks and starts a job in UIPath. Once the job is done, UIPath will notify a webhook in the bridge about the job result and state (Success/Failure). The bridge will complete the previously locked external task and pass any result variables received from UIPath along to the Camunda engine.
 
 # Prerequisites and Supported Environments
 The Camunda RPA Bridge supports the on-premise version of the [UIPath Orchestrator](https://www.uipath.com/product/orchestrator). To execute RPA bots from Camunda you will need:
 
-* An on-premise installation of [UIPath Orchestrator](https://www.uipath.com/product/orchestrator).
+* An on-premise installation of [UIPath Orchestrator](https://www.uipath.com/product/orchestrator)
 * Camunda BPM 7.14 Enterprise Edition or later
 * Java 8 or later installed on the machine that runs the Camunda RPA bridge
 
@@ -146,7 +146,7 @@ The bridge is configurable through the `application.yml` file that is included i
 
 The RPA bridge is a regular Java external task client and RPA tasks are [external tasks]({{< ref "/user-guide/process-engine/external-tasks.md" >}}) with specific settings.
 
-By default the bridge listens for tasks with the topics `uipath` and `RPA`. If a process instance reaches an external task with one of these topics, the bridge will be able to fetch and lock them. Once a task is locked the bridge will try to forward it to your installation of UIPath which will take care of executing the associated robots.
+By default, the bridge listens for tasks with the topics `uipath` and `RPA`. If a process instance reaches an external task with one of these topics, the bridge will be able to fetch and lock them. Once a task is locked, the bridge will try to forward it to your installation of UIPath which will take care of executing the associated robots.
 
 ## Map a Task to an RPA Bot
 
